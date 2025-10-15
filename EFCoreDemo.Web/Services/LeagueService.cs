@@ -1,16 +1,22 @@
-﻿using EFCoreDemo.Web.Contracts;
+﻿using EFCoreDemo.DataAccess;
+using EFCoreDemo.Web.Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace EFCoreDemo.Web.Services
 {
     public class LeagueService : ILeagueService
     {
-        public LeagueService()
+        FootballLeagueDbContext _ctx;
+        public LeagueService(FootballLeagueDbContext ctx)
         {
-            
+            _ctx = ctx;
         }
-        public Task AddLeague(string name)
+        public async Task<int> AddLeague(string name)
         {
-            throw new NotImplementedException();
+            _ctx.Leagues.Add(new Domain.League(){Name=name});
+            var recordsModified = await _ctx.SaveChangesAsync();
+
+            return recordsModified;
         }
 
         public Task DeleteLeague(int id)
@@ -23,9 +29,9 @@ namespace EFCoreDemo.Web.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<Domain.League>> GetAll()
+        public async Task<List<Domain.League>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _ctx.Leagues.ToListAsync();
         }
     }
 }

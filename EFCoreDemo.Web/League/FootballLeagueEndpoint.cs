@@ -1,10 +1,11 @@
 ﻿using FastEndpoints;
 using EFCoreDemo.DataAccess;
 using EFCoreDemo.Web.Contracts;
+using System.Runtime.CompilerServices;
 
 namespace EFCoreDemo.Web.League
 {
-    public class GetLeaguesEndpoint : EndpointWithoutRequest<LeagueResponse>
+    public class GetLeaguesEndpoint : EndpointWithoutRequest<List<LeagueResponse>>
     {
         readonly ILeagueService _svc;
         public GetLeaguesEndpoint(ILeagueService svc)
@@ -18,17 +19,25 @@ namespace EFCoreDemo.Web.League
         }
         public override async Task HandleAsync(CancellationToken ct)
         {
-            // read from DB
-            await Send.OkAsync(new()
+            var results = await _svc.GetAll();
+            List<LeagueResponse> responses = new();
+
+            foreach (var result in results)
             {
-                Id=1,
-                Name="Cats"
-            });
+                responses.Add(new() { Id = result.Id, Name = result.Name });
+            }
+
+            await Send.OkAsync(responses);
         }
     }
 
-    public class AddLeagueEndpoint:Endpoint<LeagueRequest, LeagueResponse>
+    public class AddLeagueEndpoint:Endpoint<LeagueRequest, LeagueAddedResponse>
     {
+        readonly ILeagueService _svc;
+        public AddLeagueEndpoint(ILeagueService svc)
+        {
+            _svc = svc;
+        }
         public override void Configure()
         {
             Post("/league");
@@ -37,8 +46,10 @@ namespace EFCoreDemo.Web.League
 
         public override async Task HandleAsync(LeagueRequest req, CancellationToken ct)
         {
+            var rowsUpdated = await _svc.AddLeague(req.Name);
             
-            await Send.CreatedAtAsync<AddLeagueEndpoint>();
+            await Send.CreatedAtAsync<AddLeagueEndpoint>(new LeagueAddedResponse(){RowsUpdated = rowsUpdated});
+      
         }
     }
 
@@ -52,5 +63,10 @@ namespace EFCoreDemo.Web.League
     {
         public int Id { get; set; }
         public string Name { get; set; }
+    }
+
+    public class LeagueAddedResponse
+    {
+        public int RowsUpdated { get; set; }
     }
 }
