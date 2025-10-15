@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreDemo.DataAccess", "EF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreDemo.Domain", "EFCoreDemo.Domain\EFCoreDemo.Domain.csproj", "{A112E7D0-FF9F-4D9F-865A-F6E23CF5CAED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreDemo.DbSeed", "EFCoreDemo.DbSeed\EFCoreDemo.DbSeed.csproj", "{179D67C5-3CB9-49A2-B6F5-FF56AB62784A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A112E7D0-FF9F-4D9F-865A-F6E23CF5CAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A112E7D0-FF9F-4D9F-865A-F6E23CF5CAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A112E7D0-FF9F-4D9F-865A-F6E23CF5CAED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{179D67C5-3CB9-49A2-B6F5-FF56AB62784A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{179D67C5-3CB9-49A2-B6F5-FF56AB62784A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{179D67C5-3CB9-49A2-B6F5-FF56AB62784A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{179D67C5-3CB9-49A2-B6F5-FF56AB62784A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
